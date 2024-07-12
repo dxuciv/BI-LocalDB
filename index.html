@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Personas - Banco Industrial</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background-carousel">
+      <div
+        class="carousel-slide active"
+        style="background-image: url('../assets/1.jpg')"
+      ></div>
+      <div
+        class="carousel-slide"
+        style="background-image: url('../assets/2.jpg')"
+      ></div>
+      <div
+        class="carousel-slide"
+        style="background-image: url('../assets/3.png')"
+      ></div>
+      <div
+        class="carousel-slide"
+        style="background-image: url('../assets/OIP.jpg')"
+      ></div>
+    </div>
+
+    <div class="container">
+      <div class="logo-container">
+        <img
+          src="../assets/logo.jpg"
+          alt="Logo Banco Industrial"
+          width="64"
+          height="64"
+        />
+      </div>
+      <div class="title-container">
+        <h1>Banco Industrial</h1>
+        <h2>Gestión de Personas</h2>
+      </div>
+
+      <div class="form-container">
+        <form id="person-form">
+          <div class="form-group">
+            <label for="codigo">Código:</label>
+            <input type="text" id="codigo" required />
+          </div>
+
+          <div class="form-group">
+            <label for="nombres">Nombres:</label>
+            <input type="text" id="nombres" required />
+          </div>
+
+          <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" required />
+          </div>
+
+          <div class="form-group">
+            <label for="telefonos">Teléfonos:</label>
+            <input type="text" id="telefonos" required />
+          </div>
+
+          <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" required />
+          </div>
+
+          <div class="form-group">
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" required>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <button type="submit">Agregar Persona</button>
+          <button
+            type="button"
+            onclick="window.location.href = 'display.html';"
+          >
+            Ver Información
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Script para carrusel de imágenes con cambio automático
+      const slides = document.querySelectorAll(".carousel-slide");
+      let currentSlide = 0;
+
+      function showSlide(n) {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add("active");
+      }
+
+      // Cambia las diapositivas cada 4 segundos
+      setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 3000);
+
+      // Evento para manejar el envío del formulario
+      const personForm = document.getElementById("person-form");
+
+      personForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const codigo = document.getElementById("codigo").value;
+        const nombres = document.getElementById("nombres").value;
+        const apellidos = document.getElementById("apellidos").value;
+        const telefonos = document.getElementById("telefonos").value;
+        const direccion = document.getElementById("direccion").value;
+        const email = document.getElementById("email").value;
+        const edad = document.getElementById("edad").value;
+        const sexo = document.getElementById("sexo").value;
+
+        // Guardar datos en localStorage
+        const newPerson = {
+          codigo,
+          nombres,
+          apellidos,
+          telefonos,
+          direccion,
+          email,
+          edad,
+          sexo,
+        };
+
+        // Obtener datos existentes o inicializar como array vacío
+        let people = JSON.parse(localStorage.getItem("people")) || [];
+
+        // Agregar nuevo usuario
+        people.push(newPerson);
+
+        // Guardar en localStorage
+        localStorage.setItem("people", JSON.stringify(people));
+
+        // Limpiar formulario
+        personForm.reset();
+
+        // Opcional: Mostrar mensaje de confirmación o redireccionar a otra página
+        alert("Persona agregada exitosamente!");
+      });
+    </script>
+  </body>
+</html>

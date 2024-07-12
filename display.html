@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Personas - Información Guardada</title>
+    <link rel="stylesheet" href="styles2.css" />
+  </head>
+  <body>
+    <div class="background-carousel">
+      <div
+        class="carousel-slide active"
+        style="background-image: url('../assets/1.jpg')"
+      ></div>
+      <div
+        class="carousel-slide"
+        style="background-image: url('../assets/2.jpg')"
+      ></div>
+      <div
+        class="carousel-slide"
+        style="background-image: url('../assets/3.png')"
+      ></div>
+      <div
+        class="carousel-slide"
+        style="background-image: url('../assets/OIP.jpg')"
+      ></div>
+    </div>
+
+    <div class="container">
+      <div class="logo-container">
+        <img
+          src="../assets/logo.jpg"
+          alt="Logo Banco Industrial"
+          width="64"
+          height="64"
+        />
+      </div>
+      <div class="title-container">
+        <h1>Banco Industrial</h1>
+        <h2>Gestión de Empleados</h2>
+      </div>
+
+      <div id="people-list" class="person-list"></div>
+    </div>
+
+    <button type="button" onclick="window.location.href = 'index.html';">
+      Regresar
+    </button>
+
+    <script>
+      const people = JSON.parse(localStorage.getItem("people")) || [];
+
+      const peopleList = document.getElementById("people-list");
+
+      people.forEach((person) => {
+        const personDiv = document.createElement("div");
+        personDiv.classList.add("person-item");
+        personDiv.innerHTML = `
+                <p><strong>Código:</strong> ${person.codigo}</p>
+                <p><strong>Nombres:</strong> ${person.nombres}</p>
+                <p><strong>Apellidos:</strong> ${person.apellidos}</p>
+                <p><strong>Teléfonos:</strong> ${person.telefonos}</p>
+                <p><strong>Dirección de Casa:</strong> ${person.direccion}</p>
+                <p><strong>Email:</strong> ${person.email}</p>
+                <p><strong>Edad:</strong> ${person.edad}</p>
+                <p><strong>Sexo:</strong> ${person.sexo}</p>
+                <hr>
+            `;
+        peopleList.appendChild(personDiv);
+      });
+    </script>
+  </body>
+</html>
